@@ -1,59 +1,105 @@
-body{
+/* RESET + BASE */
+* {
+    box-sizing: border-box;
+}
+
+body {
     margin: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-color: hsl(0, 0%, 95%);
+    padding: 10px;
 }
-#calculator{
+
+/* CALCULATOR SHELL */
+#calculator {
     font-family: Arial, Helvetica, sans-serif;
     background-color: hsl(0, 0%, 15%);
     border-radius: 15px;
-    max-width: 500px;
+    width: 100%;
+    max-width: 420px; /* smaller = better mobile fit */
     overflow: hidden;
 }
-#display{
+
+/* DISPLAY */
+#display {
     width: 100%;
-    padding: 20px 10px; /* smaller padding to fix half number at display */
-    font-size: 5rem; 
+    padding: 16px;
+    font-size: clamp(2rem, 8vw, 3.5rem);
     text-align: right;
     border: none;
     background-color: hsl(0, 0%, 20%);
     color: white;
-    overflow: auto; /* horizontal scroll */
+
     white-space: nowrap;
-    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    /* smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
 }
-#keys{
+
+/* hide scrollbar (clean look) */
+#display::-webkit-scrollbar {
+    display: none;
+}
+#display {
+    scrollbar-width: none;
+}
+
+/* KEYS GRID */
+#keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    padding: 20px;
+    padding: 15px;
 }
-button{
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+
+/* BUTTONS */
+button {
+    aspect-ratio: 1 / 1;     /* ✅ perfect circles, responsive */
+    width: 100%;
+    border-radius: 50%;
+
     border: none;
+    cursor: pointer;
+
     background-color: hsl(0, 0%, 30%);
     color: white;
-    font-size: 3rem;
+
+    font-size: clamp(1rem, 4vw, 1.5rem);
     font-weight: bold;
-    cursor: pointer;
+
+    touch-action: manipulation;
 }
-button:hover{
+
+button:hover {
     background-color: hsl(0, 0%, 40%);
 }
-button:active{
+
+button:active {
     background-color: hsl(0, 0%, 50%);
 }
-.operator-btn{
+
+/* OPERATORS */
+.operator-btn {
     background-color: hsl(35, 100%, 55%);
 }
-.operator-btn:hover{
+
+.operator-btn:hover {
     background-color: hsl(35, 100%, 65%);
 }
-.operator-btn:active{
+
+.operator-btn:active {
     background-color: hsl(35, 100%, 75%);
+}
+
+/* SMALL PHONES (extra safety) */
+@media (max-width: 360px) {
+    #keys {
+        gap: 6px;
+        padding: 10px;
+    }
 }
